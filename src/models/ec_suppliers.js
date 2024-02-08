@@ -16,6 +16,7 @@ const ec_suppliers = sequelize.define('ec_suppliers', {
   e_mail:{
     type:DataTypes.STRING,
     allowNull: false,
+    unique:true,
   },
   password: {
     type: DataTypes.STRING,
@@ -28,12 +29,26 @@ const ec_suppliers = sequelize.define('ec_suppliers', {
   },
   registration_id:{
     type:DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
+    defaultValue:()=>{
+        return Math.floor(100000 + Math.random()*900000).toString();
+    }
   },
   registration_time_stamp:{
     type:DataTypes.DATE,
     allowNull: false,
-  }
+    defaultValue:sequelize.literal('CURRENT_TIMESTAMP'),
+  },
+  createdAt:{
+    type:DataTypes.DATE,
+    allowNull: false,
+    defaultValue:sequelize.literal('CURRENT_TIMESTAMP'),
+  },
+  updatedAt:{
+    type:DataTypes.DATE,
+    allowNull: false,
+    defaultValue:sequelize.literal('CURRENT_TIMESTAMP'),
+  },
  
 });
 
