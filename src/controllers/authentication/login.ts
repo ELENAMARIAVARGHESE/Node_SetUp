@@ -21,7 +21,7 @@ const login =async(req:Request,res:Response):Promise<Response<any,Record<string,
         if(user && bcrypt.compareSync(password,user.password)){
         const token=jwt.sign({user_reg_id:user?.registration_id,userType},"your_secret",{expiresIn:"24h"})
     
-        res.status(200).json({ message: `Login successful ${token}`});
+        return res.status(200).json({ message: `Login successful ${token}`});
         }else{
            return res.status(500).json({ error: "Password Incorrect" });
     

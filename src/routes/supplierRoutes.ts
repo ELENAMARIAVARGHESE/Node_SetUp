@@ -4,7 +4,7 @@ import profile from "../controllers/supplierControllers/profile";
 
 const router = Router();
 
-router.get("/profile", async (req: Request, res: Response) => {
+router.get("/profile",async (req: Request, res: Response) => {
   profile(req, res);
 });
 
