@@ -1,7 +1,6 @@
 import EC_SUPPLIERS from "../../models/ec_suppliers";
 import express, {Router,Request,Response} from 'express';
 import jwt from "jsonwebtoken"
-import { JsonWebTokenError } from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 const login =async(req:Request,res:Response):Promise<Response<any,Record<string, |{ message: string }| { error: string}>
 >
