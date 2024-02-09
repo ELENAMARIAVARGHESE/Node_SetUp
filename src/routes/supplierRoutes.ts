@@ -1,10 +1,11 @@
 import { Router, Request, Response } from "express";
 import resetPassword from "../controllers/authentication/resetPassword";
 import profile from "../controllers/supplierControllers/profile";
+import middlewareJWTVerify from "../middleware/verifyJWT";
 
 const router = Router();
 
-router.get("/profile",async (req: Request, res: Response) => {
+router.get("/profile",middlewareJWTVerify,async (req: Request, res: Response) => {
   profile(req, res);
 });
 
