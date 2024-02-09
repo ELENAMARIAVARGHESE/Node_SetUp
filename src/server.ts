@@ -1,4 +1,4 @@
-import express,{Express, Request, Response } from 'express';
+import express,{Express, NextFunction, Request, Response } from 'express';
 const app:Express = express();
 import sequelize from './config/sequelize-config';
 // import { Op } from 'sequelize';
@@ -18,6 +18,10 @@ app.use(express.json());
 app.use(indexRoutes);
 app.use('/api/v1',supplierRoutes);
 
+const middleware=(req:Request,res:Response,next:NextFunction)=>{
+    
+
+}
 
 
 
