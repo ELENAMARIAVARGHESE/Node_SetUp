@@ -23,21 +23,13 @@ EC_CUSTOMERS.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
+  invitee: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   profile_pic: {
     type: DataTypes.STRING,
     allowNull: true,
-  },
-  registration_id: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    defaultValue: () => {
-      return Math.floor(100000 + Math.random() * 900000).toString();
-    },
-  },
-  registration_time_stamp: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
   },
   createdAt: {
     type: DataTypes.DATE,

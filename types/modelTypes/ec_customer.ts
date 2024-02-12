@@ -5,9 +5,8 @@ class EC_CUSTOMERS extends Model{
     public full_name !: string;
     public e_mail !: string;
     public password !: string;
+    public invitee !: number;
     public profile_pic !: string;
-    public registration_id?:string;
-    public registration_time_stamp ?: Date;
     public createdAt ?: Date;
     public updatedAt ?: Date
   

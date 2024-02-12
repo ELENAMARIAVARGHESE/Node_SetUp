@@ -5,11 +5,12 @@ class EC_SUPPLIERS extends Model{
     public full_name !: string;
     public e_mail !: string;
     public password !: string;
+    public purchased_subscription_type !: string;
     public profile_pic !: string;
     public registration_id?:string;
     public registration_time_stamp ?: Date;
     public createdAt ?: Date;
-    public updatedAt ?: Date
+    public updatedAt ?: Date;
   
   }
   export default EC_SUPPLIERS ;

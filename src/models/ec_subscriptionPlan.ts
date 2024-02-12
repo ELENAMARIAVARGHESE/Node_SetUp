@@ -15,11 +15,11 @@ EC_SUBSCRIPTION_PLAN.init({
     allowNull: false,
   },
   subscription_fee: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   no_of_customers: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   createdAt: {

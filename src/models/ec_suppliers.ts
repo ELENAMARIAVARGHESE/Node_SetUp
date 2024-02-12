@@ -23,6 +23,10 @@ EC_SUPPLIERS.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
+  purchased_subscription_type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   profile_pic: {
     type: DataTypes.STRING,
     allowNull: true,
