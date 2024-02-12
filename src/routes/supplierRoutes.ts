@@ -4,6 +4,7 @@ import profile from "../controllers/supplierControllers/supplierProfile";
 import middlewareJWTVerify from "../middleware/verifyJWT";
 import customerProfile from "../controllers/customerControllers/customerProfile";
 import sendInvite from "../controllers/supplierControllers/sendInvite";
+import getSubscriptionPlan from "../controllers/customerControllers/getSubscriptionPlan";
 
 const router = Router();
 
@@ -13,12 +14,20 @@ router.get("/supplierProfile",middlewareJWTVerify,async (req: Request, res: Resp
 router.get("/customerProfile",middlewareJWTVerify,async (req: Request, res: Response) => {
   customerProfile(req, res);
 });
+router.get("/subscriptionPlans",async (req: Request, res: Response) => {
+  getSubscriptionPlan(req, res);
+});
+router.get("/customerInvite",async (req: Request, res: Response) => {
+  sendInvite(req, res);
+});
 
 router.patch("/resetPassword", async (req: Request, res: Response) => {
   resetPassword(req, res);
 });
+
 router.patch("/sendInvite", async (req: Request, res: Response) => {
   sendInvite(req, res);
 });
+
 
 export default router;

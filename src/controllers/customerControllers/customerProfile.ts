@@ -7,7 +7,7 @@ const customerProfile = async (req: Request, res: Response): Promise<any> => {
     if (!userID || !userType) {
       return res.status(422).json({ error: "Insufficient Data" });
     }
-    // if(userType==="supplier"){
+    
     const user = await EC_CUSTOMERS.findOne({
       where: {
         id: userID,
@@ -21,7 +21,7 @@ console.log(user);
         email: `${user?.e_mail}`,
         profile_pic: `${user?.profile_pic}`,
         invitee:`${user?.invitee}`,      });
-    //}
+  
   } catch (error: any) {
     console.error("Error during login:", error);
     res.status(500).json({ error: "Internal Server Error" });

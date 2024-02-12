@@ -6,7 +6,7 @@ class EC_SUBSCRIPTION_PLAN extends Model{
     public subscription_fee !: number;
     public no_of_customers !:number;
     public createdAt ?: Date;
-    public updatedAt ?: Date
+    public updatedAt ?: Date;
   
   }
   export default EC_SUBSCRIPTION_PLAN ;

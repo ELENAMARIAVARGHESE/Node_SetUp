@@ -1,4 +1,5 @@
 import EC_SUPPLIERS from "../../models/ec_suppliers";
+import EC_CUSTOMERS from "../../models/ec_customer";
 import {Request,Response} from 'express';
 const resetPassword =async(req:Request,res:Response):Promise<any>=>{
     try{
@@ -7,7 +8,7 @@ const resetPassword =async(req:Request,res:Response):Promise<any>=>{
         if (!email ||!userType||!newPassword) {
             return res.status(422).json({ "error": "Insufficient Data" });
         }
-        // if(userType==="supplier"){
+         if(userType==="supplier"){
         const user = await EC_SUPPLIERS.findOne({
             where: {
                 e_mail: email
@@ -22,7 +23,23 @@ const resetPassword =async(req:Request,res:Response):Promise<any>=>{
         await user.update({ password: newPassword });
     
         return res.status(200).json({"full_name":`${user.full_name}`,"email":`${user.e_mail}`,"password":`${user.password}`,"profile_pic":`${user.profile_pic}`,"registration_id":`${user.registration_id}`,"registration_time_stamp":`${user.registration_time_stamp}`});
-    //}
+    }
+    else  if(userType==="customer"){
+        const user = await EC_CUSTOMERS.findOne({
+            where: {
+                e_mail: email
+            }
+        });
+    
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+    
+        // Update the password with the new password
+        await user.update({ password: newPassword });
+    
+        return res.status(200).json({"full_name":`${user.full_name}`,"email":`${user.e_mail}`,"password":`${user.password}`,"profile_pic":`${user.profile_pic}`});
+    }
     
     }
     catch (error:any) {

@@ -5,7 +5,7 @@ const profile = async (req: Request, res: Response): Promise<any> => {
     const { userType, registration_id } = req.query;
 
     if (!registration_id || !userType) {
-      return res.status(422).json({ error: "Insufficient Data" });
+      return res.status(422).json({error: "Insufficient Data" });
     }
     // if(userType==="supplier"){
     const user = await EC_SUPPLIERS.findOne({

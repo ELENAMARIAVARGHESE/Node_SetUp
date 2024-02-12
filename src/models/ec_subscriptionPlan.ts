@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/sequelize-config'; // Import the Sequelize instance
-import EC_SUBSCRIPTION_PLAN from '../../types/modelTypes/ec_suppliers';
-import bcrypt from 'bcrypt';
+import sequelize from '../config/sequelize-config';
+import EC_SUBSCRIPTION_PLAN from '../../types/modelTypes/ec_subscrptionPlan';
 
 EC_SUBSCRIPTION_PLAN.init({
   plan_id: {
@@ -36,12 +35,7 @@ EC_SUBSCRIPTION_PLAN.init({
   sequelize,
   modelName: 'ec_subscription_plans',
   tableName: 'ec_subscription_plans',
-  hooks:{
-    beforeCreate:(user:EC_SUBSCRIPTION_PLAN)=>{
-      const hashedPassword=bcrypt.hashSync(user.password,bcrypt.genSaltSync(10));
-      user.password=hashedPassword;
-    }
-  }
+
 });
 
 export default EC_SUBSCRIPTION_PLAN ;

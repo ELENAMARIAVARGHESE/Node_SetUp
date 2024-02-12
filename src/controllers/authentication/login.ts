@@ -22,8 +22,26 @@ const login =async(req:Request,res:Response):Promise<Response<any,Record<string,
         if(user && bcrypt.compareSync(password,user.password)){
         const token=jwt.sign({user_reg_id:user?.registration_id,userType},"your_secret_supplier",{expiresIn:"24h"})
     
-        return res.status(200).json({ message: `Login successful ${token}`});
+        return res.status(200).json({message: `Login successful ${token}`});
         }else{
+           return res.status(500).json({error: "Password Incorrect"});
+    
+        }
+
+        
+    }
+    else if(userType==="super admin"){
+        const user = await EC_SUPPLIERS.findOne({
+            where: {
+                e_mail: email
+            }
+        });
+        if(user && bcrypt.compareSync(password,user.password)){
+        const token=jwt.sign({user_reg_id:user?.registration_id,userType},"your_secret_admin",{expiresIn:"24h"})
+    
+        return res.status(200).json({ message: `Login successful ${token}`});
+        }
+        else{
            return res.status(500).json({ error: "Password Incorrect" });
     
         }
@@ -40,7 +58,8 @@ const login =async(req:Request,res:Response):Promise<Response<any,Record<string,
         const token=jwt.sign({user_reg_id:user?.id,userType},"your_secret_customer",{expiresIn:"24h"})
     
         return res.status(200).json({ message: `Login successful ${token}`});
-        }else{
+        }
+        else{
            return res.status(500).json({ error: "Password Incorrect" });
     
         }
