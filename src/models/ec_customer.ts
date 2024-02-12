@@ -24,7 +24,7 @@ EC_CUSTOMERS.init({
     allowNull: false,
   },
   invitee: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   profile_pic: {

@@ -1,5 +1,5 @@
 import EC_SUPPLIERS from "../../models/ec_suppliers";
-import express, {Router,Request,Response} from 'express';
+import  {Request,Response} from 'express';
 import jwt from "jsonwebtoken"
 import bcrypt from 'bcrypt';
 import EC_CUSTOMERS from "../../models/ec_customer";

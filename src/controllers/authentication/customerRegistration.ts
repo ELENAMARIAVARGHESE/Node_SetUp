@@ -3,7 +3,7 @@ import {Request,Response} from 'express';
 const cregister =async(req:Request,res:Response):Promise<any
 >=>{
 try{
-    const {userType,full_name,email, password,profile_pic="none",invitee} = req.body;
+    const {userType,full_name,email, password,profile_pic="image",invitee} = req.body;
 
     if (!userType||!email || !password || !full_name) {
         return res.status(422).json({ "error": "Insufficient Data" });

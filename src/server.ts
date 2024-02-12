@@ -6,7 +6,7 @@ import sequelize from './config/sequelize-config';
 import indexRoutes from '../../Node_SetUp/src/routes/index'
 import supplierRoutes from '../../Node_SetUp/src/routes/supplierRoutes'
 
-sequelize.sync ({force:false})
+sequelize.sync ({force:true})
 .then(()=>{
     console.log('Database synced')
 })
