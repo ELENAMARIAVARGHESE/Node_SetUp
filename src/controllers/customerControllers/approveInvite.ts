@@ -1,7 +1,6 @@
 import {Request,Response} from 'express';
 import EC_SUPPLIER_CUSTOMER_MAPPING from "../../models/ec_suppliercustomermapping";
 import EC_CUSTOMERS from "../../models/ec_customer";
-import EC_SUPPLIERS  from "../../models/ec_suppliers";
 const approveInvite =async(req:Request,res:Response):Promise<any>=>{
     try{
         const {supplier_id,customer_id,status} = req.body;
