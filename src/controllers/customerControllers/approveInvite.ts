@@ -4,15 +4,22 @@ import EC_CUSTOMERS from "../../models/ec_customer";
 import EC_SUPPLIERS  from "../../models/ec_suppliers";
 const approveInvite =async(req:Request,res:Response):Promise<any>=>{
     try{
-        const {customer_id,status} = req.body;
+        const {supplier_id,customer_id,status} = req.body;
     
-        if (!customer_id||!status) {
+        if (!supplier_id||!customer_id||!status) {
             return res.status(422).json({ error: "Insufficient Data" });
         }
         
-        const user = await EC_SUPPLIER_CUSTOMER_MAPPING.findOne({
+        const users = await EC_SUPPLIER_CUSTOMER_MAPPING.findAll({
             where: {
                 customer_id: customer_id
+            }
+        });
+        const invite = await EC_SUPPLIER_CUSTOMER_MAPPING.findOne({
+            where: {
+                customer_id: customer_id,
+                supplier_id:supplier_id
+                
             }
         });
         const customer = await EC_CUSTOMERS.findOne({
@@ -21,15 +28,23 @@ const approveInvite =async(req:Request,res:Response):Promise<any>=>{
             }
         });
     
-        if (!user) {
-            return res.status(404).json({ error: "You have no invites" });
+        if (!users) {
+            return res.status(404).json({error: "Invalid invite"});
         }
     
-        if(user && customer){
-        await user.update({ status: status });
-        await user.update({ invitee: user.supplier_id });
+        if(invite && invite.status==="pending"){
+        await invite.update({ status: status });
+        await customer?.update({ invitee: invite.supplier_id });
     
         return res.status(200).json({message:`Status has successfully changed to ${status}`});
+        }
+        if(status==="accept"){
+            for (const user of users) {
+                if (user.status === "pending") {
+                    await user.update({ status: "rejected" });
+                }
+            }
+
         }
     
     
