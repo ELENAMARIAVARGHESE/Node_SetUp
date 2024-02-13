@@ -8,7 +8,7 @@ const sendInvite = async (req: Request,res: Response) =>{
     try{
         const {supplier_id, customer_id} = req.body;
         const findCustomer = await EC_CUSTOMERS.findOne({where: {id : customer_id}});
-        const findSupplier = await EC_SUPPLIERS.findOne({where: {id : customer_id}});
+        const findSupplier = await EC_SUPPLIERS.findOne({where: {registration_id : supplier_id}});
 
  
         if(findCustomer && findSupplier)
@@ -32,7 +32,7 @@ const sendInvite = async (req: Request,res: Response) =>{
                     findCustomer.invitee = supplier_id;
                     findCustomer.save();
  
-                    const newSubscription = EC_SUPPLIER_CUSTOMER_MAPPING.create({supplier_id : supplier_id, customer_id : customer_id});
+                    const newSubscription = EC_SUPPLIER_CUSTOMER_MAPPING.create({supplier_id : supplier_id, customer_id : customer_id,status:"pending"});
                    
                     return res.status(200).json({message : `The Customer ${findCustomer.full_name} has been Successfully Invited By ${findSupplier?.full_name}`});
                 }
@@ -41,12 +41,12 @@ const sendInvite = async (req: Request,res: Response) =>{
             }
             else
             {
-                return res.status(404).json({message : `Exceeded Limit`});
+                return res.status(404).json({message : `Exceeded limit`});
             }
         }
         else
         {
-            return res.status(404).json({message: "Invalid Customer"});
+            return res.status(404).json({message: "Invalid customer or supplier"});
         }
  
     }catch(error){

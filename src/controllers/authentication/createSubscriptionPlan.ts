@@ -1,6 +1,4 @@
 import EC_SUBSCRIPTION_PLAN from "../../models/ec_subscriptionPlan"
-import EC_SUPPLIERS from '../../models/ec_suppliers';
-
 import {Request,Response} from 'express';
 const sub_plan =async(req:Request,res:Response):Promise<any
 >=>{
