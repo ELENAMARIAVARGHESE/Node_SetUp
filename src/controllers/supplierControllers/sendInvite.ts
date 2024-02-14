@@ -19,7 +19,7 @@ const sendInvite = async (req: Request,res: Response) =>{
             const findSupplier = await EC_SUPPLIERS.findOne({where : {registration_id : supplier_id}});
             const planName = findSupplier?.purchased_subscription_type;
  
-            const findPlan = await EC_SUBSCRIPTION_PLAN.findOne({where : {subscription_plan_name : planName}});
+            const findPlan = await EC_SUBSCRIPTION_PLAN.findOne({where : {subscription_name : planName}});
             let maximum_number_of_customers = findPlan?.no_of_customers;
  
             if(maximum_number_of_customers === undefined)
@@ -27,17 +27,18 @@ const sendInvite = async (req: Request,res: Response) =>{
  
             if(supplierInviteCount < maximum_number_of_customers)
             {
-                if(findCustomer.invitee === null)
+                if(findCustomer.invitee === "null")
                 {
-                    findCustomer.invitee = supplier_id;
-                    findCustomer.save();
+                    //findCustomer.invitee = supplier_id;
+                    //findCustomer.save();
  
                     const newSubscription = EC_SUPPLIER_CUSTOMER_MAPPING.create({supplier_id : supplier_id, customer_id : customer_id,status:"pending"});
+                    console.log(newSubscription)
                    
                     return res.status(200).json({message : `The Customer ${findCustomer.full_name} has been Successfully Invited By ${findSupplier?.full_name}`});
                 }
                 else
-                    return res.status(404).json({message : `The Customer ${findCustomer.full_name} has been invited By ${findCustomer.invitee}`});
+                    return res.status(404).json({message : `The Customer ${findCustomer.full_name} could not be invited`});
             }
             else
             {

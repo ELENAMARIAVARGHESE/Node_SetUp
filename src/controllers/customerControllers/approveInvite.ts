@@ -14,6 +14,7 @@ const approveInvite =async(req:Request,res:Response):Promise<any>=>{
                 customer_id: customer_id
             }
         });
+        console.log(users);
         const invite = await EC_SUPPLIER_CUSTOMER_MAPPING.findOne({
             where: {
                 customer_id: customer_id,
@@ -37,7 +38,7 @@ const approveInvite =async(req:Request,res:Response):Promise<any>=>{
     
         return res.status(200).json({message:`Status has successfully changed to ${status}`});
         }
-        if(status==="accept"){
+        if(status==="accepted"){
             for (const user of users) {
                 if (user.status === "pending") {
                     await user.update({ status: "rejected" });
