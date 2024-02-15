@@ -27,6 +27,7 @@ router.patch("/resetPassword", async (req: Request, res: Response) => {
 router.post("/sendInvite", async (req: Request, res: Response) => {
   sendInvite(req, res);
 });
+
 router.patch("/approveInvite", async (req: Request, res: Response) => {
   approveInvite(req, res);
 });

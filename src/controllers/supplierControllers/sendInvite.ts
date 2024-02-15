@@ -13,7 +13,7 @@ const sendInvite = async (req: Request,res: Response) =>{
  
         if(findCustomer && findSupplier)
         {
-            const findSupplierInvitingCustomers = await EC_SUPPLIER_CUSTOMER_MAPPING.findAll({where : {supplier_id : supplier_id}});
+            const findSupplierInvitingCustomers = await EC_SUPPLIER_CUSTOMER_MAPPING.findAll({where : {supplier_id : supplier_id,status:'accepted'}});
             const supplierInviteCount = findSupplierInvitingCustomers.length;
  
             const findSupplier = await EC_SUPPLIERS.findOne({where : {registration_id : supplier_id}});
@@ -29,8 +29,7 @@ const sendInvite = async (req: Request,res: Response) =>{
             {
                 if(findCustomer.invitee === "null")
                 {
-                    //findCustomer.invitee = supplier_id;
-                    //findCustomer.save();
+                //findCustomer.invitee = supplier_id;
  
                     const newSubscription = EC_SUPPLIER_CUSTOMER_MAPPING.create({supplier_id : supplier_id, customer_id : customer_id,status:"pending"});
                     console.log(newSubscription)
