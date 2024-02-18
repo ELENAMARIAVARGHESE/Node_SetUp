@@ -5,12 +5,13 @@ import { Request, Response } from 'express';
 let ecommerceDB: Db = client.db('e-commerce');
 
 const filterProducts = async (req: Request, res: Response): Promise<any> => {
+
+    const supplier_reg_id = req.query.supplier_reg_id;
+
+    if(!supplier_reg_id){
+        return res.status(422).json({error : 'supplier Registration ID required in the Request'})
+    }
     try {
-        const sortKey: string = req.query.sortKey as string || '_id';
-        const sortOrder: SortDirection = parseInt(req.query.sortOrder as string) === -1 ? -1 : 1;
-
-        const sortOptions: [string, SortDirection] = [sortKey, sortOrder as SortDirection];
-
         const productCategory: string = req.query.productCategory as string;
 
         const filterQuery: { [key: string]: any } = {};
@@ -20,7 +21,6 @@ const filterProducts = async (req: Request, res: Response): Promise<any> => {
 
         const products = await ecommerceDB.collection('Products')
             .find(filterQuery)
-            .sort([sortOptions])
             .toArray();
 
         console.log(products);
